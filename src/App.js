@@ -33,6 +33,9 @@ function App() {
     },
   };
 
+  // Random number of stars to show
+  const starsNbr = utils.random(1, 9);
+
   return (
     <div className="game">
       <div className="help">
@@ -40,7 +43,7 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          { utils.range(1, 9).map(startId =>
+          {utils.range(1, starsNbr).map(startId =>
             <div key={startId} className="star" />
           )}
         </div>
