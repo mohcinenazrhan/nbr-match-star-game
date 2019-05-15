@@ -2,7 +2,9 @@ import React from 'react';
 
 const PlayNumber = (props) => {
   return ( 
-    <button className="number">{props.number}</button>
+    <button className="number" onClick={() => console.log('Number', props.number) }>
+      {props.number}
+    </button>
   );
 }
  
