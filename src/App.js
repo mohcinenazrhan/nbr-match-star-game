@@ -45,15 +45,9 @@ function App() {
           )}
         </div>
         <div className="right">
-          <button className="number">1</button>
-          <button className="number">2</button>
-          <button className="number">3</button>
-          <button className="number">4</button>
-          <button className="number">5</button>
-          <button className="number">6</button>
-          <button className="number">7</button>
-          <button className="number">8</button>
-          <button className="number">9</button>
+          {utils.range(1, 9).map(number =>
+            <button key={number} className="number">{number}</button>
+          )}
         </div>
       </div>
       <div className="timer">Time Remaining: 10</div>
