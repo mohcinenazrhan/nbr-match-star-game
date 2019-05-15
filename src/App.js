@@ -39,6 +39,25 @@ function App() {
   // Random number of stars to show
   const [starsNbr] = useState(utils.random(1, 9))
 
+  // Btn states
+  const [availableNums] = useState(utils.range(1, 9));
+  const [candidateNums] = useState([]);
+
+  // Check if candidates are wrong
+  const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
+
+  const numberStatus = (number) => {
+    if (!availableNums.includes(number)) {
+      return 'used';
+    }
+
+    if (candidateNums.includes(number)) {
+      return candidatesAreWrong ? 'wrong' : 'candidate';
+    }
+
+    return 'available';
+  }
+
   return (
     <div className="game">
       <div className="help">
@@ -50,7 +69,11 @@ function App() {
         </div>
         <div className="right">
           {utils.range(1, 9).map(number =>
-            <PlayNumber key={number} number={number} />
+            <PlayNumber 
+              key={number}
+              status={numberStatus(number)}
+              number={number}
+            />
           )}
         </div>
       </div>
