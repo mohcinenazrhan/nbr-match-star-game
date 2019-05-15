@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import './App.css';
 import PlayNumber from './PlayNumber';
+import StarsDisplay from './StarsDisplay';
 
 function App() {
 
@@ -45,9 +46,7 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          {utils.range(1, starsNbr).map(startId =>
-            <div key={startId} className="star" />
-          )}
+          <StarsDisplay stars={utils.range(1, starsNbr)}/>
         </div>
         <div className="right">
           {utils.range(1, 9).map(number =>
