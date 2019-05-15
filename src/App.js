@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import './App.css';
+import PlayNumber from './PlayNumber';
 
 function App() {
 
@@ -49,7 +51,7 @@ function App() {
         </div>
         <div className="right">
           {utils.range(1, 9).map(number =>
-            <button key={number} className="number">{number}</button>
+            <PlayNumber key={number} number={number} />
           )}
         </div>
       </div>
