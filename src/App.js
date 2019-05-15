@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
   };
 
   // Random number of stars to show
-  const starsNbr = utils.random(1, 9);
+  const [starsNbr] = useState(utils.random(1, 9))
 
   return (
     <div className="game">
