@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  
+
   // Game Math science
   const utils = {
     // Sum an array
@@ -40,15 +40,9 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
+          { utils.range(1, 9).map(startId =>
+            <div key={startId} className="star" />
+          )}
         </div>
         <div className="right">
           <button className="number">1</button>
