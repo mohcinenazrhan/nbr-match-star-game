@@ -113,7 +113,7 @@ function App() {
       <div className="body">
         <div className="left">
           { gameStatus !== 'active'
-             ? <PlayAgain onClick={resetGame} />
+             ? <PlayAgain onClick={resetGame} gameStatus={gameStatus} />
               : <StarsDisplay stars={utils.range(1, starsNbr)} /> 
           }
         </div>
