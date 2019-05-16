@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PlayNumber from './PlayNumber';
 import StarsDisplay from './StarsDisplay';
+import PlayAgain from './PlayAgain';
 
 function App() {
 
@@ -49,6 +50,12 @@ function App() {
   // Check if the game is done
   const gameIsDone = availableNums.length === 0;
 
+  const resetGame = () => {
+    setStarsNbr(utils.random(1, 9));
+    setAvailableNums(utils.range(1, 9));
+    setCandidateNums([]);
+  };
+
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
       return 'used';
@@ -90,7 +97,10 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          { gameIsDone ? 'Good job' : <StarsDisplay stars={utils.range(1, starsNbr)} /> }
+          { gameIsDone
+             ? <PlayAgain onClick={resetGame} />
+              : <StarsDisplay stars={utils.range(1, starsNbr)} /> 
+          }
         </div>
         <div className="right">
           {utils.range(1, 9).map(number =>
