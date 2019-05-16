@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import PlayNumber from './PlayNumber';
@@ -44,6 +44,18 @@ function App() {
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
   const [candidateNums, setCandidateNums] = useState([]);
 
+  // Counter state
+  const [secondsLeft, setSecondsLeft] = useState(10);
+
+  useEffect(() => {
+    if (secondsLeft > 0 && availableNums.length > 0) {
+      const timerId = setTimeout(() => {
+        setSecondsLeft(secondsLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    }
+  });  
+
   // Check if candidates are wrong
   const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
 
@@ -54,6 +66,7 @@ function App() {
     setStarsNbr(utils.random(1, 9));
     setAvailableNums(utils.range(1, 9));
     setCandidateNums([]);
+    setSecondsLeft(10);
   };
 
   const numberStatus = (number) => {
@@ -113,7 +126,7 @@ function App() {
           )}
         </div>
       </div>
-      <div className="timer">Time Remaining: 10</div>
+      <div className="timer">Time Remaining: {secondsLeft}</div>
     </div>
   );
 }
