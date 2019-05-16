@@ -59,8 +59,10 @@ function App() {
   // Check if candidates are wrong
   const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
 
-  // Check if the game is done
-  const gameIsDone = availableNums.length === 0;
+  // Game status whether if lost, win or still active
+  const gameStatus = availableNums.length === 0
+    ? 'won'
+    : secondsLeft === 0 ? 'lost' : 'active';  
 
   const resetGame = () => {
     setStarsNbr(utils.random(1, 9));
@@ -110,7 +112,7 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          { gameIsDone
+          { gameStatus !== 'active'
              ? <PlayAgain onClick={resetGame} />
               : <StarsDisplay stars={utils.range(1, starsNbr)} /> 
           }
