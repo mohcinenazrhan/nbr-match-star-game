@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import './App.css';
 import PlayNumber from './PlayNumber';
 import StarsDisplay from './StarsDisplay';
 import PlayAgain from './PlayAgain';
 import { utils } from './gameLogicHelper';
+import { useGameState } from './useGameState';
 
 function App() {
 
-  // Random number of stars to show
-  const [starsNbr, setStarsNbr] = useState(utils.random(1, 9))
-
-  // Btn states
-  const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
-  const [candidateNums, setCandidateNums] = useState([]);
-
-  // Counter state
-  const [secondsLeft, setSecondsLeft] = useState(10);
-
-  useEffect(() => {
-    if (secondsLeft > 0 && availableNums.length > 0) {
-      const timerId = setTimeout(() => {
-        setSecondsLeft(secondsLeft - 1);
-      }, 1000);
-      return () => clearTimeout(timerId);
-    }
-  });  
+  const {
+    starsNbr,
+    availableNums,
+    candidateNums,
+    secondsLeft,
+    setGameState,
+    setStarsNbr,
+    setAvailableNums,
+    setCandidateNums,
+    setSecondsLeft
+  } = useGameState();
 
   // Check if candidates are wrong
   const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
@@ -64,16 +58,7 @@ function App() {
         ? candidateNums.concat(number)
         : candidateNums.filter(cn => cn !== number);
 
-    if (utils.sum(newCandidateNums) !== starsNbr) {
-      setCandidateNums(newCandidateNums);
-    } else {
-      const newAvailableNums = availableNums.filter(
-        n => !newCandidateNums.includes(n)
-      );
-      setStarsNbr(utils.randomSumIn(newAvailableNums, 9));
-      setAvailableNums(newAvailableNums);
-      setCandidateNums([]);
-    }
+    setGameState(newCandidateNums);
   };
 
   return (
