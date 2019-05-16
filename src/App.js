@@ -46,6 +46,9 @@ function App() {
   // Check if candidates are wrong
   const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
 
+  // Check if the game is done
+  const gameIsDone = availableNums.length === 0;
+
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
       return 'used';
@@ -87,7 +90,7 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          <StarsDisplay stars={utils.range(1, starsNbr)}/>
+          { gameIsDone ? 'Good job' : <StarsDisplay stars={utils.range(1, starsNbr)} /> }
         </div>
         <div className="right">
           {utils.range(1, 9).map(number =>
