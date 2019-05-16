@@ -37,11 +37,11 @@ function App() {
   };
 
   // Random number of stars to show
-  const [starsNbr] = useState(utils.random(1, 9))
+  const [starsNbr, setStarsNbr] = useState(utils.random(1, 9))
 
   // Btn states
-  const [availableNums] = useState(utils.range(1, 9));
-  const [candidateNums] = useState([]);
+  const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
+  const [candidateNums, setCandidateNums] = useState([]);
 
   // Check if candidates are wrong
   const candidatesAreWrong = utils.sum(candidateNums) > starsNbr;
@@ -58,6 +58,28 @@ function App() {
     return 'available';
   }
 
+  const onNumberClick = (number, currentStatus) => {
+    if (currentStatus === 'used') {
+      return;
+    }
+
+    const newCandidateNums =
+      currentStatus === 'available'
+        ? candidateNums.concat(number)
+        : candidateNums.filter(cn => cn !== number);
+
+    if (utils.sum(newCandidateNums) !== starsNbr) {
+      setCandidateNums(newCandidateNums);
+    } else {
+      const newAvailableNums = availableNums.filter(
+        n => !newCandidateNums.includes(n)
+      );
+      setStarsNbr(utils.randomSumIn(newAvailableNums, 9));
+      setAvailableNums(newAvailableNums);
+      setCandidateNums([]);
+    }
+  };
+
   return (
     <div className="game">
       <div className="help">
@@ -73,6 +95,7 @@ function App() {
               key={number}
               status={numberStatus(number)}
               number={number}
+              onClick={onNumberClick}
             />
           )}
         </div>
